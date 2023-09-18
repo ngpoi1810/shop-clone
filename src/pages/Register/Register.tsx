@@ -1,21 +1,29 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { rules } from 'src/utils/rules'
+import Input from 'src/components/Input'
+import { schema, Schema } from 'src/utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-interface FormData {
-  email: string
-  password: string
-  re_password: string
-}
+// interface FormData {
+//   email: string
+//   password: string
+//   re_password: string
+// }
+type FormData = Schema
 
 export default function Register() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors }
-  } = useForm<FormData>()
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
+  } = useForm<FormData>({
+    resolver: yupResolver(schema)
+  })
+
+  const onSubmit = handleSubmit(() => {
+    const password = getValues('password')
+    console.log(password)
   })
 
   return (
@@ -35,18 +43,14 @@ export default function Register() {
                     <label htmlFor='email' className='block text-sm font-medium leading-6 text-gray-900'>
                       Email address
                     </label>
-                    <div className='mt-2'>
-                      <input
-                        id='email'
-                        type='email'
-                        autoComplete='email'
-                        className='block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                        {...register('email', rules.email)}
-                      />
-                      <div className='block text-sm font-medium leading-6 text-red-600 mt-2'>
-                        {errors.email?.message}
-                      </div>
-                    </div>
+                    <Input
+                      id='email'
+                      name='email'
+                      placeholder='Email'
+                      type='email'
+                      register={register}
+                      errorMessage={errors.email?.message}
+                    />
                   </div>
                   <div className='mt-0'>
                     <div className='flex items-center justify-between'>
@@ -54,19 +58,14 @@ export default function Register() {
                         Password
                       </label>
                     </div>
-                    <div className='mt-2'>
-                      <input
-                        id='password'
-                        type='password'
-                        autoComplete='on'
-                        required
-                        className='block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                        {...register('email', rules.password)}
-                      />
-                      <div className='block text-sm font-medium leading-6 text-red-600 mt-2'>
-                        {errors.password?.message}
-                      </div>
-                    </div>
+                    <Input
+                      id='password'
+                      name='password'
+                      placeholder='Password'
+                      type='password'
+                      register={register}
+                      errorMessage={errors.password?.message}
+                    />
                   </div>
                   <div className='mt-0'>
                     <div className='flex items-center justify-between'>
@@ -74,19 +73,14 @@ export default function Register() {
                         Re-Password
                       </label>
                     </div>
-                    <div className='mt-2'>
-                      <input
-                        id='password'
-                        type='password'
-                        autoComplete='on'
-                        required
-                        className='block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                        {...register('email', rules.re_password)}
-                      />
-                      <div className='block text-sm font-medium leading-6 text-red-600 mt-2'>
-                        {errors.re_password?.message}
-                      </div>
-                    </div>
+                    <Input
+                      id='re-password'
+                      name='re_password'
+                      placeholder='Re-Password'
+                      type='password'
+                      register={register}
+                      errorMessage={errors.re_password?.message}
+                    />
                   </div>
                   <div>
                     <button
