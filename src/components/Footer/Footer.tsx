@@ -160,7 +160,7 @@ export default function Footer() {
           <div className='font-bold text-sm'>Made With Love By Finland All Right Reserved </div>
           <div className='flex gap-3'>
             <Link to='aaa'>
-              <img src='public/images/fb-blue-icon.svg' alt='' />
+              <img src='/images/fb-blue-icon.svg' alt='' />
             </Link>
             <Link to='aaa'>
               <img src='public/images/ins-blue-icon.svg' alt='' />
