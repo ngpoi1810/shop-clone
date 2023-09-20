@@ -133,7 +133,7 @@ export default function Footer() {
             <ul className='font-bold text-sm'>
               <li className='mb-3'>
                 <Link className='flex gap-2 items-center' to='aaaa' title='(480) 555-0103'>
-                  <img src='public/images/phone-bold-icon.svg' alt='' /> (480) 555-0103
+                  <img src='images/phone-bold-icon.svg' alt='' /> (480) 555-0103
                 </Link>
               </li>
 
@@ -143,14 +143,13 @@ export default function Footer() {
                   to='aaaa'
                   title='4517 Washington Ave. Manchester, Kentucky 39495'
                 >
-                  <img src='public/images/location-bold-icon.svg' alt='' /> 4517 Washington Ave. Manchester, Kentucky
-                  39495
+                  <img src='images/location-bold-icon.svg' alt='' /> 4517 Washington Ave. Manchester, Kentucky 39495
                 </Link>
               </li>
 
               <li className='mb-3'>
                 <Link className='flex gap-2 items-center' to='aaaa' title='debra.holt@example.com'>
-                  <img src='public/images/email-bold-icon.svg' alt='' /> debra.holt@example.com
+                  <img src='images/email-bold-icon.svg' alt='' /> debra.holt@example.com
                 </Link>
               </li>
             </ul>
@@ -163,10 +162,10 @@ export default function Footer() {
               <img src='/images/fb-blue-icon.svg' alt='' />
             </Link>
             <Link to='aaa'>
-              <img src='public/images/ins-blue-icon.svg' alt='' />
+              <img src='images/ins-blue-icon.svg' alt='' />
             </Link>
             <Link to='aaa'>
-              <img src='public/images/twitter-blue-icon.svg' alt='' />
+              <img src='images/twitter-blue-icon.svg' alt='' />
             </Link>
           </div>
         </div>

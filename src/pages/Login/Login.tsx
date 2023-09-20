@@ -1,6 +1,54 @@
+import { useMutation } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { login } from 'src/apis/auth.api'
+import Input from 'src/components/Input'
+import { ResponseApi } from 'src/types/utils.type'
+import { Schema, schema } from 'src/utils/rules'
+import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
 
+type FormData = Omit<Schema, 're_password'>
+const loginSchema = schema.omit(['re_password'])
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors }
+  } = useForm<FormData>({
+    resolver: yupResolver(loginSchema)
+  })
+
+  const loginAccountMutation = useMutation({
+    mutationFn: (body: FormData) => login(body)
+  })
+
+  const onSubmit = handleSubmit((data) => {
+    loginAccountMutation.mutate(data, {
+      onSuccess: (data) => {
+        console.log(data)
+      },
+      onError: (error) => {
+        if (isAxiosUnprocessableEntityError<ResponseApi<FormData>>(error)) {
+          const formError = error.response?.data.data
+          if (formError?.email) {
+            setError('email', {
+              message: formError.email,
+              type: 'Server'
+            })
+          }
+          if (formError?.password) {
+            setError('password', {
+              message: formError.password,
+              type: 'Server'
+            })
+          }
+        }
+      }
+    })
+  })
+
   return (
     <div className='bg-white '>
       <div className="bg-[url('images/login-banner.jpg')] bg-no-repeat bg-left bg-contain h-[600px] w-[1440px] m-auto flex items-center justify-end">
@@ -13,21 +61,19 @@ export default function Login() {
                 </h2>
               </div>
               <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-                <form className='space-y-6' action='#' method='POST'>
+                <form className='space-y-6' action='#' method='POST' onSubmit={onSubmit} noValidate>
                   <div>
                     <label htmlFor='email' className='block text-sm font-medium leading-6 text-gray-900'>
                       Email address
                     </label>
-                    <div className='mt-2'>
-                      <input
-                        id='email'
-                        name='email'
-                        type='email'
-                        autoComplete='email'
-                        required
-                        className='block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                      />
-                    </div>
+                    <Input
+                      id='email'
+                      name='email'
+                      placeholder='Email'
+                      type='email'
+                      register={register}
+                      errorMessage={errors.email?.message}
+                    />
                   </div>
                   <div>
                     <div className='flex items-center justify-between'>
@@ -40,16 +86,14 @@ export default function Login() {
                         </Link>
                       </div>
                     </div>
-                    <div className='mt-2'>
-                      <input
-                        id='password'
-                        name='password'
-                        type='password'
-                        autoComplete='current-password'
-                        required
-                        className='block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                      />
-                    </div>
+                    <Input
+                      id='password'
+                      name='password'
+                      placeholder='Password'
+                      type='password'
+                      register={register}
+                      errorMessage={errors.password?.message}
+                    />
                   </div>
                   <div>
                     <button

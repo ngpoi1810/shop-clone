@@ -9,7 +9,6 @@ import { registerAccount } from 'src/apis/auth.api'
 import { omit } from 'lodash'
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
 import { ResponseApi } from 'src/types/utils.type'
-import { type } from 'os'
 
 // interface FormData {
 //   email: string

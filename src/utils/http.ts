@@ -10,6 +10,14 @@ class Http {
         'Content-Type': 'application/json'
       }
     })
+    this.instance.interceptors.response.use(
+      function (response) {
+        return response
+      },
+      function (error) {
+        return Promise.reject(error)
+      }
+    )
   }
 }
 const http = new Http().instance
