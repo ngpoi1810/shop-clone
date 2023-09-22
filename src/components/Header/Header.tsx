@@ -1,9 +1,19 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useFloating, useHover, useInteractions, safePolygon, FloatingPortal, offset } from '@floating-ui/react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useMutation } from '@tanstack/react-query'
+import { logout } from 'src/apis/auth.api'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function Header() {
+  const { setIsAuthenticated, isAuthenticated } = useContext(AppContext)
+  const logoutMutation = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      setIsAuthenticated(false)
+    }
+  })
   const [isOpen, setIsOpen] = useState(false)
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
@@ -14,6 +24,9 @@ export default function Header() {
     handleClose: safePolygon()
   })
   const { getReferenceProps, getFloatingProps } = useInteractions([hover])
+  const handleLogout = () => {
+    logoutMutation.mutate()
+  }
   return (
     <header className='xl:container m-auto flex items-center justify-between'>
       <Link to='/'>
@@ -25,26 +38,30 @@ export default function Header() {
         </li>
 
         <li className='hover:scale-110 transition-all'>
-          <Link to='#'>Deals</Link>
+          <Link to='#'>Shop</Link>
         </li>
 
         <li className='hover:scale-110 transition-all'>
-          <Link to='#'>New Arrivals</Link>
+          <Link to='#'>Products</Link>
         </li>
 
         <li className='hover:scale-110 transition-all'>
-          <Link to='#'>Packages</Link>
+          <Link to='#'>Pages</Link>
         </li>
 
-        <li className='hover:scale-110 transition-all'>
-          <Link to='/login'>Sign in</Link>
-        </li>
+        {!isAuthenticated && (
+          <>
+            <li className='hover:scale-110 transition-all'>
+              <Link to='/login'>Sign in</Link>
+            </li>
 
-        <li>
-          <Link className='rounded-xl bg-black shadow-xl text-white py-5 px-11' to='/register'>
-            Sign Up
-          </Link>
-        </li>
+            <li>
+              <Link className='rounded-xl bg-black shadow-xl text-white py-5 px-11' to='/register'>
+                Sign Up
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
       <div className='flex gap-4 items-center'>
         <div>
@@ -78,57 +95,63 @@ export default function Header() {
             </div>
           </form>
         </div>
-        <div className='w-7'>
-          <Link to='#' ref={refs.setReference} {...getReferenceProps()}>
-            <img className='w-12/12' src='images/avatar-icon.gif' alt='Star' title='Start' />
-          </Link>
-          <FloatingPortal>
-            <AnimatePresence>
-              {isOpen && (
-                <motion.div
-                  className='bg-black/5 rounded pt-4 pr-3 pb-2 pl-5 backdrop-blur-[75px] top-3'
-                  ref={refs.setFloating}
-                  style={floatingStyles}
-                  {...getFloatingProps()}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{
-                    ease: 'linear',
-                    duration: 0.2,
-                    x: { duration: 1 }
-                  }}
-                  exit={{ opacity: 0 }}
-                >
-                  <ul>
-                    <li className='mb-3'>
-                      <Link className='text-white' to='/profile'>
-                        My Account
-                      </Link>
-                    </li>
-                    <li className='mb-3'>
-                      <Link className='text-white' to='#'>
-                        My Order
-                      </Link>
-                    </li>
-                    <li>
-                      <button className='text-white w-full cursor-pointer text-left'>Logout</button>
-                    </li>
-                  </ul>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </FloatingPortal>
-        </div>
-        <div className='w-7'>
-          <Link to='#'>
-            <img className='w-12/12' src='images/star-icon.gif' alt='Star' title='Start' />
-          </Link>
-        </div>
-        <div className='w-7'>
-          <Link to='#'>
-            <img className='w-12/12' src='images/shopping-card-icon.gif' alt='Star' title='Start' />
-          </Link>
-        </div>
+        {isAuthenticated && (
+          <>
+            <div className='w-7'>
+              <Link to='#' ref={refs.setReference} {...getReferenceProps()}>
+                <img className='w-12/12' src='images/avatar-icon.gif' alt='Star' title='Start' />
+              </Link>
+              <FloatingPortal>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      className='bg-black/5 rounded pt-4 pr-3 pb-2 pl-5 backdrop-blur-[75px] top-3'
+                      ref={refs.setFloating}
+                      style={floatingStyles}
+                      {...getFloatingProps()}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{
+                        ease: 'linear',
+                        duration: 0.2,
+                        x: { duration: 1 }
+                      }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <ul>
+                        <li className='mb-3'>
+                          <Link className='text-white' to='/profile'>
+                            My Account
+                          </Link>
+                        </li>
+                        <li className='mb-3'>
+                          <Link className='text-white' to='#'>
+                            My Order
+                          </Link>
+                        </li>
+                        <li>
+                          <button onClick={handleLogout} className='text-white w-full cursor-pointer text-left'>
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </FloatingPortal>
+            </div>
+            <div className='w-7'>
+              <Link to='#'>
+                <img className='w-12/12' src='images/star-icon.gif' alt='Star' title='Start' />
+              </Link>
+            </div>
+            <div className='w-7'>
+              <Link to='#'>
+                <img className='w-12/12' src='images/shopping-card-icon.gif' alt='Star' title='Start' />
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </header>
   )
