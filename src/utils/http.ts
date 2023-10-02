@@ -1,7 +1,7 @@
-import axios, { type AxiosInstance } from 'axios'
+import axios, { AxiosError, HttpStatusCode, type AxiosInstance } from 'axios'
 import { AuthResponse } from 'src/types/auth.type'
-import { clearAccessTokenFromLS, getAccessTokenFromLS, saveAccessTokenToLS } from './auth'
-
+import { clearAccessTokenFromLS, getAccessTokenFromLS, saveAccessTokenToLS, setProfile } from './auth'
+import { toast } from 'react-toastify'
 class Http {
   instance: AxiosInstance
   private accessToken: string
@@ -30,15 +30,23 @@ class Http {
       (response) => {
         const { url } = response.config
         if (url === '/login' || url === 'register') {
-          this.accessToken = (response.data as AuthResponse).data.access_token
+          const data = response.data as AuthResponse
+          this.accessToken = data.data.access_token
           saveAccessTokenToLS(this.accessToken)
+          setProfile(data.data.user)
         } else if (url === '/logout') {
           this.accessToken = ''
           clearAccessTokenFromLS()
         }
         return response
       },
-      function (error) {
+      function (error: AxiosError) {
+        if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const data: any | undefined = error.response?.data
+          const message = data.message || error.message
+          toast.error(message)
+        }
         return Promise.reject(error)
       }
     )

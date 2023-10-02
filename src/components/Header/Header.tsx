@@ -7,11 +7,12 @@ import { logout } from 'src/apis/auth.api'
 import { AppContext } from 'src/contexts/app.context'
 
 export default function Header() {
-  const { setIsAuthenticated, isAuthenticated } = useContext(AppContext)
+  const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const logoutMutation = useMutation({
     mutationFn: logout,
     onSuccess: () => {
       setIsAuthenticated(false)
+      setProfile(null)
     }
   })
   const [isOpen, setIsOpen] = useState(false)
@@ -121,7 +122,7 @@ export default function Header() {
                       <ul>
                         <li className='mb-3'>
                           <Link className='text-white' to='/profile'>
-                            My Account
+                            {profile?.email  }
                           </Link>
                         </li>
                         <li className='mb-3'>
