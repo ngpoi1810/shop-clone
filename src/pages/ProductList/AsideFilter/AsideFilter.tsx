@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import SeeMore from 'src/components/SeeMore'
 
 export default function AsideFilter() {
   return (
@@ -515,7 +516,7 @@ export default function AsideFilter() {
                 Thưởng Thêm Astra
               </label>
             </div>
-            <div className='flex items-center'>
+            <div className='flex items-center mb-3'>
               <input
                 id='filter-mobile-color-1'
                 name='color[]'
@@ -558,7 +559,7 @@ export default function AsideFilter() {
                 Thưởng Thêm Astra
               </label>
             </div>
-            <div className='flex items-center'>
+            <div className='flex items-center mb-3'>
               <input
                 id='filter-mobile-color-1'
                 name='color[]'
@@ -567,9 +568,10 @@ export default function AsideFilter() {
                 defaultValue='beige'
               />
               <label htmlFor='filter-mobile-color-1' className='text-sm ml-3 min-w-0 flex-1'>
-                Trả Góp 0%
+                Thưởng Thêm Astra
               </label>
             </div>
+            <SeeMore initialExpanded={true} />
           </div>
         </div>
       </div>
