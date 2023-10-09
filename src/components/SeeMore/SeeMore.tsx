@@ -1,41 +1,19 @@
-import React, { useState } from 'react'
-
-export default function SeeMore(initialExpanded: boolean) {
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+interface Props {
+  initialExpanded?: boolean
+  children?: React.ReactNode
+}
+export default function SeeMore({ initialExpanded = false, children }: Props) {
   const [expanded, setExpanded] = useState(initialExpanded)
+
   const toggleExpand = () => {
     setExpanded(!expanded)
   }
   return (
     <>
-      {expanded && (
-        <>
-          <div className='flex items-center mb-3'>
-            <input
-              id='filter-mobile-color-1'
-              name='color[]'
-              type='checkbox'
-              className='h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
-              defaultValue='beige'
-            />
-            <label htmlFor='filter-mobile-color-1' className='text-sm ml-3 min-w-0 flex-1'>
-              Thưởng Thêm Astra
-            </label>
-          </div>
-          <div className='flex items-center mb-3'>
-            <input
-              id='filter-mobile-color-1'
-              name='color[]'
-              type='checkbox'
-              className='h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
-              defaultValue='beige'
-            />
-            <label htmlFor='filter-mobile-color-1' className='text-sm ml-3 min-w-0 flex-1'>
-              Trả Góp 0%
-            </label>
-          </div>
-        </>
-      )}
-      <Link onClick={toggleExpand} to='' className='flex items-center text-sky-600'>
+      {expanded && children}
+      <Link onClick={toggleExpand} to='' className='flex items-center text-sky-600 text-xs'>
         {expanded ? (
           <>
             Thu gọn

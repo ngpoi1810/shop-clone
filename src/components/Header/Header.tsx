@@ -106,7 +106,7 @@ export default function Header() {
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
-                      className='bg-black/5 rounded pt-4 pr-3 pb-2 pl-5 backdrop-blur-[75px] top-3'
+                      className='bg-black rounded pt-4 pr-3 pb-2 pl-5 backdrop-blur-[75px] top-3'
                       ref={refs.setFloating}
                       style={floatingStyles}
                       {...getFloatingProps()}
@@ -122,7 +122,7 @@ export default function Header() {
                       <ul>
                         <li className='mb-3'>
                           <Link className='text-white' to='/profile'>
-                            {profile?.email  }
+                            {profile?.email}
                           </Link>
                         </li>
                         <li className='mb-3'>

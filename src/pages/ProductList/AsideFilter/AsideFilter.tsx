@@ -3,7 +3,7 @@ import SeeMore from 'src/components/SeeMore'
 
 export default function AsideFilter() {
   return (
-    <div className='col-span-1 bg-white w-[200px]'>
+    <div className='col-span-1 bg-white w-[200px] shrink-0'>
       <div className='px-4 pb-4'>
         <h4 className='text-sm font-medium py-3'>Danh Mục Sản Phẩm</h4>
         <div>
@@ -528,6 +528,34 @@ export default function AsideFilter() {
                 Trả Góp 0%
               </label>
             </div>
+            <SeeMore initialExpanded={false}>
+              <>
+                <div className='flex items-center mb-3'>
+                  <input
+                    id='filter-mobile-color-1'
+                    name='color[]'
+                    type='checkbox'
+                    className='h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
+                    defaultValue='beige'
+                  />
+                  <label htmlFor='filter-mobile-color-1' className='text-sm ml-3 min-w-0 flex-1'>
+                    Thưởng Thêm Astra
+                  </label>
+                </div>
+                <div className='flex items-center mb-3'>
+                  <input
+                    id='filter-mobile-color-1'
+                    name='color[]'
+                    type='checkbox'
+                    className='h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
+                    defaultValue='beige'
+                  />
+                  <label htmlFor='filter-mobile-color-1' className='text-sm ml-3 min-w-0 flex-1'>
+                    Thưởng Thêm Astra
+                  </label>
+                </div>
+              </>
+            </SeeMore>
           </div>
         </div>
       </div>
@@ -571,7 +599,34 @@ export default function AsideFilter() {
                 Thưởng Thêm Astra
               </label>
             </div>
-            <SeeMore initialExpanded={true} />
+            <SeeMore initialExpanded={false}>
+              <>
+                <div className='flex items-center mb-3'>
+                  <input
+                    id='filter-mobile-color-1'
+                    name='color[]'
+                    type='checkbox'
+                    className='h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
+                    defaultValue='beige'
+                  />
+                  <label htmlFor='filter-mobile-color-1' className='text-sm ml-3 min-w-0 flex-1'>
+                    Thưởng Thêm Astra
+                  </label>
+                </div>
+                <div className='flex items-center mb-3'>
+                  <input
+                    id='filter-mobile-color-1'
+                    name='color[]'
+                    type='checkbox'
+                    className='h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
+                    defaultValue='beige'
+                  />
+                  <label htmlFor='filter-mobile-color-1' className='text-sm ml-3 min-w-0 flex-1'>
+                    Thưởng Thêm Astra
+                  </label>
+                </div>
+              </>
+            </SeeMore>
           </div>
         </div>
       </div>
