@@ -20,10 +20,10 @@ export default function SortProductList() {
           <SwiperSlide>
             <Link to='' className='flex rounded-lg border-[1px] border-black overflow-hidden'>
               <div className='w-[165px] h-[165px] relative shrink-0 overflow-hidden'>
-                <div className='bg-[url("/public/images/slide1.png")] w-full h-full bg-no-repeat bg-center bg-cover blur-3xl'></div>{' '}
+                <div className='bg-[url("/images/slide1.png")] w-full h-full bg-no-repeat bg-center bg-cover blur-3xl'></div>{' '}
                 <img
                   className='w-[123px] absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4'
-                  src='/public/images/slide1.png'
+                  src='/images/slide1.png'
                   alt=''
                 />
               </div>
@@ -58,19 +58,19 @@ export default function SortProductList() {
                 </div>
                 <div className='flex mt-3'>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
                   </div>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
                   </div>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
@@ -82,10 +82,10 @@ export default function SortProductList() {
           <SwiperSlide>
             <Link to='' className='flex rounded-lg border-[1px] border-black overflow-hidden'>
               <div className='w-[165px] h-[165px] relative shrink-0 overflow-hidden'>
-                <div className='bg-[url("/public/images/slide1.png")] w-full h-full bg-no-repeat bg-center bg-cover blur-3xl'></div>{' '}
+                <div className='bg-[url("/images/slide1.png")] w-full h-full bg-no-repeat bg-center bg-cover blur-3xl'></div>{' '}
                 <img
                   className='w-[123px] absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4'
-                  src='/public/images/slide1.png'
+                  src='/images/slide1.png'
                   alt=''
                 />
               </div>
@@ -120,19 +120,19 @@ export default function SortProductList() {
                 </div>
                 <div className='flex mt-3'>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
                   </div>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
                   </div>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
@@ -144,10 +144,10 @@ export default function SortProductList() {
           <SwiperSlide>
             <Link to='' className='flex rounded-lg border-[1px] border-black overflow-hidden'>
               <div className='w-[165px] h-[165px] relative shrink-0 overflow-hidden'>
-                <div className='bg-[url("/public/images/slide1.png")] w-full h-full bg-no-repeat bg-center bg-cover blur-3xl'></div>{' '}
+                <div className='bg-[url("/images/slide1.png")] w-full h-full bg-no-repeat bg-center bg-cover blur-3xl'></div>{' '}
                 <img
                   className='w-[123px] absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4'
-                  src='/public/images/slide1.png'
+                  src='/images/slide1.png'
                   alt=''
                 />
               </div>
@@ -182,19 +182,19 @@ export default function SortProductList() {
                 </div>
                 <div className='flex mt-3'>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
                   </div>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
                   </div>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
@@ -206,10 +206,10 @@ export default function SortProductList() {
           <SwiperSlide>
             <Link to='' className='flex rounded-lg border-[1px] border-black overflow-hidden'>
               <div className='w-[165px] h-[165px] relative shrink-0 overflow-hidden'>
-                <div className='bg-[url("/public/images/slide1.png")] w-full h-full bg-no-repeat bg-center bg-cover blur-3xl'></div>{' '}
+                <div className='bg-[url("/images/slide1.png")] w-full h-full bg-no-repeat bg-center bg-cover blur-3xl'></div>{' '}
                 <img
                   className='w-[123px] absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4'
-                  src='/public/images/slide1.png'
+                  src='/images/slide1.png'
                   alt=''
                 />
               </div>
@@ -244,19 +244,19 @@ export default function SortProductList() {
                 </div>
                 <div className='flex mt-3'>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
                   </div>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
                   </div>
                   <div className='w-16 h-16 relative mr-2'>
-                    <img className='border-[1px] rounded-lg border-black' src='/public/images/product-1.jpg' alt='' />
+                    <img className='border-[1px] rounded-lg border-black' src='/images/product-1.jpg' alt='' />
                     <div className='absolute bg-red-500 rounded-lg text-xs text-white bottom-[2px] right-[2px] p-1'>
                       -20%
                     </div>
