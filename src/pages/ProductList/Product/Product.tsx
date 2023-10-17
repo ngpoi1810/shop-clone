@@ -8,7 +8,7 @@ interface Props {
 }
 export default function Product({ product }: Props) {
   return (
-    <Link to='' className='bg-white block rounded overflow-hidden hover:shadow-lg hover:transition-shadow'>
+    <Link to='' className='bg-white block overflow-hidden hover:shadow-lg hover:transition-shadow rounded'>
       <div className='w-full relative pt-[100%]'>
         <div className='absolute top-0 left-0 w-full h-full'>
           <img className='w-full h-full' src={product.image} alt={product.name} title={product.name} />
