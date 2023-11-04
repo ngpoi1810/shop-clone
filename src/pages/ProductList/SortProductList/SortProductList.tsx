@@ -1,10 +1,49 @@
-import { Link } from 'react-router-dom'
+import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 // eslint-disable-next-line import/no-unresolved
 import { Swiper, SwiperSlide } from 'swiper/react'
 // eslint-disable-next-line import/no-unresolved
 import { Autoplay } from 'swiper/modules'
-
-export default function SortProductList() {
+import { QueryConfig } from '../ProductList'
+import { sortBy, order as orderConst } from 'src/constants/product'
+import classNames from 'classnames'
+import { ProductListConfig } from 'src/types/product.type'
+import path from 'src/constants/path'
+import { omit } from 'lodash'
+interface Props {
+  queryConfig: QueryConfig
+  pageSize: number
+}
+export default function SortProductList({ queryConfig, pageSize }: Props) {
+  const page = Number(queryConfig.page)
+  const { sort_by = sortBy.createdAt, order } = queryConfig
+  const navigate = useNavigate()
+  const isActiveSortBy = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
+    return sort_by === sortByValue
+  }
+  const handleSort = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
+    navigate({
+      pathname: path.home,
+      search: createSearchParams(
+        omit(
+          {
+            ...queryConfig,
+            sort_by: sortByValue
+          },
+          ['order']
+        )
+      ).toString()
+    })
+  }
+  const handlePriceSort = (orderValue: Exclude<ProductListConfig['order'], undefined>) => {
+    navigate({
+      pathname: path.home,
+      search: createSearchParams({
+        ...queryConfig,
+        sort_by: sortBy.price,
+        order: orderValue
+      }).toString()
+    })
+  }
   return (
     <div className='bg-white mb-2'>
       <h2 className='text-xl pt-4 pl-3'>Điện Thoại - Máy Tính Bảng</h2>
@@ -268,46 +307,100 @@ export default function SortProductList() {
         </Swiper>
       </div>
       <div className='flex justify-between px-4 py-3 items-center '>
-        <div>
-          <button className='relative inline-flex items-center justify-center p-0.5  mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300  focus:ring-4 focus:outline-none focus:ring-lime-200 '>
-            <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0'>
+        <div className='flex items-center'>
+          <button
+            className={classNames(
+              'relative inline-flex items-center justify-center p-0.5 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200',
+              { 'ring-4 outline-none ring-red-100': isActiveSortBy(sortBy.view) },
+              {
+                '': !isActiveSortBy(sortBy.view)
+              }
+            )}
+            onClick={() => handleSort(sortBy.view)}
+          >
+            <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0'>
               Phổ Biến
             </span>
           </button>
-          <button className='relative inline-flex items-center justify-center p-0.5  mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200 '>
+          <button
+            className={classNames(
+              'relative inline-flex items-center justify-center p-0.5 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white',
+              { 'ring-4 outline-none ring-cyan-200': isActiveSortBy(sortBy.sold) },
+              { '': !isActiveSortBy(sortBy.sold) }
+            )}
+            onClick={() => handleSort(sortBy.sold)}
+          >
             <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0'>
               Bán Chạy
             </span>
           </button>
 
-          <button className='relative inline-flex items-center justify-center p-0.5  mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white  focus:ring-4 focus:outline-none focus:ring-green-200 '>
+          <button
+            className={classNames(
+              'relative inline-flex items-center justify-center p-0.5  mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white',
+              { 'ring-4 outline-none ring-green-200': isActiveSortBy(sortBy.createdAt) },
+              { '': !isActiveSortBy(sortBy.createdAt) }
+            )}
+            onClick={() => handleSort(sortBy.createdAt)}
+          >
             <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0'>
               Hàng Mới
             </span>
           </button>
 
-          <button className='relative inline-flex items-center justify-center p-0.5  mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-purple-200 '>
-            <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0'>
-              Giá Thấp Đến Cao
-            </span>
-          </button>
-
-          <button className='relative inline-flex items-center justify-center p-0.5  mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white  focus:ring-4 focus:outline-none focus:ring-pink-200 '>
-            <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0'>
-              Giá Cao Đến Thấp
-            </span>
-          </button>
+          <div>
+            <select
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
+              value={order || ''}
+              onChange={(event) =>
+                handlePriceSort(event.target.value as Exclude<ProductListConfig['order'], undefined>)
+              }
+            >
+              <option value='' disabled>
+                Giá
+              </option>
+              <option value={orderConst.desc}>Giá từ cao đến thấp</option>
+              <option value={orderConst.asc}>Giá từ thấp đến cao</option>
+            </select>
+          </div>
         </div>
         <div className='flex items-center'>
           <div className='mr-2 flex gap-1'>
-            <span>1</span>/<span>24</span>
+            <span>{page}</span>/<span>{pageSize}</span>
           </div>
           <nav aria-label='Page navigation example'>
             <ul className='flex items-center -space-x-px h-8 text-sm'>
-              <li>
+              {page === 1 ? (
+                <li>
+                  <span className='cursor-not-allowed flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 '>
+                    <span className='sr-only'>Previous</span>
+                    <svg
+                      className='w-2.5 h-2.5'
+                      aria-hidden='true'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 6 10'
+                    >
+                      <path
+                        stroke='currentColor'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M5 1 1 5l4 4'
+                      />
+                    </svg>
+                  </span>
+                </li>
+              ) : (
                 <Link
-                  to='#'
                   className='flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 '
+                  to={{
+                    pathname: path.home,
+                    search: createSearchParams({
+                      ...queryConfig,
+                      page: (page - 1).toString()
+                    }).toString()
+                  }}
                 >
                   <span className='sr-only'>Previous</span>
                   <svg
@@ -326,30 +419,60 @@ export default function SortProductList() {
                     />
                   </svg>
                 </Link>
-              </li>
-              <li>
-                <Link
-                  to='#'
-                  className='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 '
-                >
-                  <span className='sr-only'>Next</span>
-                  <svg
-                    className='w-2.5 h-2.5'
-                    aria-hidden='true'
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 6 10'
+              )}
+
+              {page === pageSize ? (
+                <li>
+                  <span className='cursor-not-allowed flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 '>
+                    <span className='sr-only'>Next</span>
+                    <svg
+                      className='w-2.5 h-2.5'
+                      aria-hidden='true'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 6 10'
+                    >
+                      <path
+                        stroke='currentColor'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='m1 9 4-4-4-4'
+                      />
+                    </svg>
+                  </span>
+                </li>
+              ) : (
+                <li>
+                  <Link
+                    to={{
+                      pathname: path.home,
+                      search: createSearchParams({
+                        ...queryConfig,
+                        page: (page + 1).toString()
+                      }).toString()
+                    }}
+                    className='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 '
                   >
-                    <path
-                      stroke='currentColor'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='m1 9 4-4-4-4'
-                    />
-                  </svg>
-                </Link>
-              </li>
+                    <span className='sr-only'>Next</span>
+                    <svg
+                      className='w-2.5 h-2.5'
+                      aria-hidden='true'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 6 10'
+                    >
+                      <path
+                        stroke='currentColor'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='m1 9 4-4-4-4'
+                      />
+                    </svg>
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

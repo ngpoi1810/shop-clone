@@ -34,7 +34,6 @@ export default function ProductList() {
     },
     keepPreviousData: true
   })
-  console.log(queryConfig)
 
   return (
     <div className='bg-[#f5f5fa] '>
@@ -42,18 +41,20 @@ export default function ProductList() {
         <div className='grid grid-cols-6 py-14'>
           <AsideFilter />
           <div className='col-span-5 '>
-            <SortProductList />
             {data && (
-              <div className='grid grid-cols-5 gap-2'>
-                {data.data.data.products.map((product) => (
-                  <div className='col-span-1' key={product._id}>
-                    <Product product={product} />
+              <>
+                <SortProductList queryConfig={queryConfig} pageSize={data.data.data.pagination.page_size} />
+                <div className='grid grid-cols-5 gap-2'>
+                  {data.data.data.products.map((product) => (
+                    <div className='col-span-1' key={product._id}>
+                      <Product product={product} />
+                    </div>
+                  ))}
+                  <div className='col-span-5 mx-auto mt-8'>
+                    <Pagination queryConfig={queryConfig} pageSize={data.data.data.pagination.page_size} />
                   </div>
-                ))}
-                <div className='col-span-5 mx-auto mt-8'>
-                  <Pagination queryConfig={queryConfig} pageSize={data.data.data.pagination.page_size} />
                 </div>
-              </div>
+              </>
             )}
           </div>
         </div>

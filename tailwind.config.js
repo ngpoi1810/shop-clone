@@ -1,10 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  theme: {
-    // colors: {
-    //   'bg-dark': '#252B42'
-    // }
-  },
-  plugins: []
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}', './node_modules/flowbite/**/*.js'],
+  theme: {},
+  plugins: [require('flowbite/plugin')]
 }
