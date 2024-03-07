@@ -1,34 +1,43 @@
-import { Link } from 'react-router-dom'
+import { Link, createSearchParams } from 'react-router-dom'
 import SeeMore from 'src/components/SeeMore'
+import { QueryConfig } from '../ProductList'
+import { Category } from 'src/types/category.type'
+import classNames from 'classnames'
+import path from 'src/constants/path'
 
-export default function AsideFilter() {
+interface Props {
+  queryConfig: QueryConfig
+  categories: Category[]
+}
+
+export default function AsideFilter({ queryConfig, categories }: Props) {
+  const { category } = queryConfig
+  console.log('category:' + category + 'categoies' + categories)
+
   return (
     <div className='col-span-1  w-[200px] shrink-0'>
       <div className='bg-white'>
         <div className='px-4 pb-4'>
           <h4 className='text-sm font-medium py-3'>Danh Mục Sản Phẩm</h4>
           <div>
-            <Link className='flex text-sm pb-3' to='#'>
-              Giày thể thao nam
-            </Link>
-            <Link className='flex text-sm pb-3' to='#'>
-              Giày lười nam
-            </Link>
-            <Link className='flex text-sm pb-3' to='#'>
-              Giày tây nam
-            </Link>
-            <Link className='flex text-sm pb-3' to='#'>
-              Giày sandals nam
-            </Link>
-            <Link className='flex text-sm pb-3' to='#'>
-              Dép nam
-            </Link>
-            <Link className='flex text-sm pb-3' to='#'>
-              Giày boots nam
-            </Link>
-            <Link className='flex text-sm' to='#'>
-              Phụ kiện giày nam
-            </Link>
+            {categories.map((categoryItem) => {
+              const isActive = category === categoryItem._id
+              return (
+                <Link
+                  key={categoryItem._id}
+                  className={classNames('flex  pb-3 text-sm', { 'font-medium': isActive })}
+                  to={{
+                    pathname: path.home,
+                    search: createSearchParams({
+                      ...queryConfig,
+                      category: categoryItem._id
+                    }).toString()
+                  }}
+                >
+                  {categoryItem.name}
+                </Link>
+              )
+            })}
           </div>
         </div>
         <div className='px-4 pb-4 border-t-[1px]'>
