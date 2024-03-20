@@ -4,14 +4,25 @@ import { QueryConfig } from '../ProductList'
 import { Category } from 'src/types/category.type'
 import classNames from 'classnames'
 import path from 'src/constants/path'
+import InputNumber from 'src/components/inputNumber'
+import { useForm, Controller } from 'react-hook-form'
 
 interface Props {
   queryConfig: QueryConfig
   categories: Category[]
 }
-
+type FormData = {
+  price_min: string
+  price_max: string
+}
 export default function AsideFilter({ queryConfig, categories }: Props) {
   const { category } = queryConfig
+  const { control, handleSubmit, watch } = useForm<FormData>({
+    defaultValues: {
+      price_max: '',
+      price_min: ''
+    }
+  })
   console.log('category:' + category + 'categoies' + categories)
 
   return (
@@ -419,33 +430,39 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
           </div>
         </div>
         <div className='px-4 pb-4 border-t-[1px]'>
-          <h4 className='text-sm font-medium py-3'>Giá</h4>
-          <div>
-            <div className='cursor-pointer'>
-              <span className='py-1 px-3 bg-[#eeeeee] inline-block rounded-xl text-xs mb-1'>Dưới 150.000</span>
-            </div>
-            <div className='cursor-pointer'>
-              <span className='py-1 px-3 bg-[#eeeeee] inline-block rounded-xl text-xs mb-1'>150.000 đến 350.000</span>
-            </div>
-            <div className='cursor-pointer'>
-              <span className='py-1 px-3 bg-[#eeeeee] inline-block rounded-xl text-xs mb-1'>150.000 đến 1.050.000</span>
-            </div>
-            <div className='cursor-pointer'>
-              <span className='py-1 px-3 bg-[#eeeeee] inline-block rounded-xl text-xs mb-1'>Trên 1.050.000</span>
-            </div>
-          </div>
-          <div className='text-sm pb-2 mt-1 text-slate-400'>Chọn khoảng giá</div>
+          <h4 className='text-sm font-medium py-3'>Chọn khoảng giá</h4>
           <div className='flex items-center gap-1'>
-            <input
-              type='text'
-              id='default-input'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1'
+            <Controller
+              control={control}
+              name='price_min'
+              render={({ field }) => {
+                return (
+                  <InputNumber
+                    placeholder='đ Từ'
+                    type='text'
+                    id='default-input'
+                    onChange={field.onChange}
+                    value={field.value}
+                  />
+                )
+              }}
             />
+
             <span>-</span>
-            <input
-              type='text'
-              id='default-input'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1'
+            <Controller
+              control={control}
+              name='price_max'
+              render={({ field }) => {
+                return (
+                  <InputNumber
+                    placeholder='đ Đến'
+                    type='text'
+                    id='default-input'
+                    onChange={field.onChange}
+                    value={field.value}
+                  />
+                )
+              }}
             />
           </div>
           <button
