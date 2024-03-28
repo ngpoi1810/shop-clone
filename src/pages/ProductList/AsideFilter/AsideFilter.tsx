@@ -6,6 +6,8 @@ import classNames from 'classnames'
 import path from 'src/constants/path'
 import InputNumber from 'src/components/inputNumber'
 import { useForm, Controller } from 'react-hook-form'
+import { schema } from 'src/utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 interface Props {
   queryConfig: QueryConfig
@@ -15,16 +17,29 @@ type FormData = {
   price_min: string
   price_max: string
 }
+
+const priceSchema = schema.pick(['price_max', 'price_min'])
+
 export default function AsideFilter({ queryConfig, categories }: Props) {
   const { category } = queryConfig
-  const { control, handleSubmit, watch } = useForm<FormData>({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm<FormData>({
     defaultValues: {
       price_max: '',
       price_min: ''
-    }
+    },
+    resolver: yupResolver(priceSchema)
   })
-  console.log('category:' + category + 'categoies' + categories)
+  const valueForm = watch()
+  console.log(errors)
 
+  const onSubmit = handleSubmit((data) => {
+    console.log(data)
+  })
   return (
     <div className='col-span-1  w-[200px] shrink-0'>
       <div className='bg-white'>
@@ -431,46 +446,48 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
         </div>
         <div className='px-4 pb-4 border-t-[1px]'>
           <h4 className='text-sm font-medium py-3'>Chọn khoảng giá</h4>
-          <div className='flex items-center gap-1'>
-            <Controller
-              control={control}
-              name='price_min'
-              render={({ field }) => {
-                return (
-                  <InputNumber
-                    placeholder='đ Từ'
-                    type='text'
-                    id='default-input'
-                    onChange={field.onChange}
-                    value={field.value}
-                  />
-                )
-              }}
-            />
+          <form onSubmit={onSubmit}>
+            <div className='flex items-center gap-1'>
+              <Controller
+                control={control}
+                name='price_min'
+                render={({ field }) => {
+                  return (
+                    <InputNumber
+                      placeholder='đ Từ'
+                      type='text'
+                      id='default-input'
+                      onChange={field.onChange}
+                      value={field.value}
+                    />
+                  )
+                }}
+              />
 
-            <span>-</span>
-            <Controller
-              control={control}
-              name='price_max'
-              render={({ field }) => {
-                return (
-                  <InputNumber
-                    placeholder='đ Đến'
-                    type='text'
-                    id='default-input'
-                    onChange={field.onChange}
-                    value={field.value}
-                  />
-                )
-              }}
-            />
-          </div>
-          <button
-            type='button'
-            className=' text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center mt-2 w-full'
-          >
-            Áp dụng
-          </button>
+              <span>-</span>
+              <Controller
+                control={control}
+                name='price_max'
+                render={({ field }) => {
+                  return (
+                    <InputNumber
+                      placeholder='đ Đến'
+                      type='text'
+                      id='default-input'
+                      onChange={field.onChange}
+                      value={field.value}
+                    />
+                  )
+                }}
+              />
+            </div>
+            <button
+              type='button'
+              className=' text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center mt-2 w-full'
+            >
+              Áp dụng
+            </button>
+          </form>
         </div>
         <div className='px-4 pb-4 border-t-[1px]'>
           <h4 className='text-sm font-medium py-3'>Nhà cung cấp</h4>
